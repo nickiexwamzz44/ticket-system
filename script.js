@@ -152,12 +152,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateCartCount() {
         const cart = getCart();
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        
+        // Update main cart count
         const cartCountElement = document.getElementById('cartCount');
         if (cartCountElement) {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartCountElement.textContent = totalItems;
         }
+        
+        // Update navigation cart count
+        const navCartCountElement = document.getElementById('navCartCount');
+        if (navCartCountElement) {
+            navCartCountElement.textContent = totalItems;
+        }
     }
+
 
     function parsePrice(price) {
         // Handle prices like "free", "ksh 500pp", "ksh 5,000pp", "free entry", etc.

@@ -1,3 +1,24 @@
+/* ============================================
+   THE TICKETIER - UNIFIED DESIGN SYSTEM
+   ============================================ */
+
+/* CSS Variables for Consistent Color Palette */
+:root {
+    --primary-color: #9b59b6;        /* Main purple */
+    --primary-light: #d5addf;          /* Light purple */
+    --primary-dark: #8e44ad;           /* Dark purple */
+    --accent-color: #e91e63;           /* Pink accent */
+    --accent-light: #f8bbd9;           /* Light pink */
+    --text-dark: #2c3e50;              /* Dark text */
+    --text-light: #7f8c8d;             /* Light text */
+    --bg-light: #f5f7fa;               /* Light background */
+    --bg-white: #ffffff;               /* White */
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --border-radius: 10px;
+    --transition: all 0.3s ease;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,103 +26,230 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-h1{
-    color: #d560d7;
+/* ============================================
+   NAVIGATION BAR - Consistent across all pages
+   ============================================ */
+.navbar {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    padding: 0;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+}
+
+.nav-brand {
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-brand::before {
+    content: "🎫";
+    font-size: 1.2em;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    padding: 20px 20px;
+    transition: var(--transition);
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link.active {
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    right: 20%;
+    height: 3px;
+    background: var(--accent-color);
+    border-radius: 2px;
+}
+
+/* Cart badge in nav */
+.nav-link .cart-badge {
+    background: var(--accent-color);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75em;
+    margin-left: 5px;
+}
+
+/* ============================================
+   HEADER STYLES
+   ============================================ */
+h1 {
+    color: var(--primary-dark);
     margin-bottom: 10px;
     text-align: start;
+    font-weight: 700;
 }
 
 header {
- background-color: #d5addf;
-  padding: 20px;
-  color: white;
-}
-
-body {
-    background:rgba(255, 255, 255, 0.447);
-    min-height: 100vh;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-.container {
-    max-width: 1000px;
-    margin: 0 auto;
-    flex: 1;
-}
-
-.form-container {
-    background: white;
-    border-radius: 10px;
-    padding: 30px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    color: #d5addf;
-    margin-bottom: 10px;
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
+    padding: 30px 20px;
+    color: white;
     text-align: center;
 }
 
+header h1 {
+    color: white;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+
+body {
+    background: var(--bg-light);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    flex: 1;
+    padding: 20px;
+}
+
+.form-container {
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(155, 89, 182, 0.1);
+}
+
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 600;
+}
+
+
 .muted {
-    color: #666;
+    color: var(--text-light);
     margin-bottom: 20px;
 }
 
+/* ============================================
+   FORM ELEMENTS
+   ============================================ */
 .search-form {
     display: flex;
     gap: 10px;
 }
 
-.search-form input {
+.search-form input,
+.ticket-select {
     flex: 1;
     padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 5px;
+    border: 2px solid var(--primary-light);
+    border-radius: 8px;
     font-size: 16px;
-    transition: border-color 0.3s;
+    transition: var(--transition);
+    background: var(--bg-white);
 }
 
-.search-form input:focus {
+.search-form input:focus,
+.ticket-select:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.1);
 }
 
-.search-form button {
+.search-form button,
+.add-to-cart-btn {
     padding: 12px 25px;
-    background: #d560d7;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
-    transition: background 0.3s;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: 0 2px 4px rgba(155, 89, 182, 0.3);
 }
 
-.search-form button:hover {
-    background: #5568d3;
+.search-form button:hover,
+.add-to-cart-btn:hover {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
 }
 
+.add-to-cart-btn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+/* ============================================
+   TABLES
+   ============================================ */
 .events-table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
-    border-radius: 10px;
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
+    margin-top: 20px;
 }
 
 .events-table thead {
-    background: #d5addf;
-    color: #d560d7;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
 }
 
 .events-table th {
     padding: 15px;
     text-align: left;
     font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
 }
 
 .events-table td {
@@ -110,67 +258,135 @@ h2 {
 }
 
 .events-table tr:hover {
-    background: #f5f5f5;
+    background: var(--bg-light);
 }
 
 .events-table tr:last-child td {
     border-bottom: none;
 }
 
+
+/* ============================================
+   TICKET COMPONENTS
+   ============================================ */
 .ticket-option {
     display: inline-block;
     padding: 8px 15px;
     margin: 5px;
-    background: #f0f0f0;
+    background: var(--primary-light);
+    color: var(--primary-dark);
     border-radius: 20px;
     font-size: 14px;
+    font-weight: 500;
+    border: 1px solid rgba(155, 89, 182, 0.2);
 }
 
 .ticket-price {
-    font-weight: 600;
-    color: #667eea;
+    font-weight: 700;
+    color: var(--accent-color);
+    font-size: 1.1em;
 }
 
 .buy-btn {
-    padding: 8px 20px;
-    background: #d560d7;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--accent-color) 0%, #c2185b 100%);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 14px;
-    transition: background 0.3s;
+    font-weight: 600;
+    transition: var(--transition);
     margin-left: 10px;
+    box-shadow: 0 2px 4px rgba(233, 30, 99, 0.3);
 }
 
 .buy-btn:hover {
-    background: #d5addf;
+    background: linear-gradient(135deg, #c2185b 0%, var(--accent-color) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(233, 30, 99, 0.4);
 }
 
+
+/* ============================================
+   UTILITY COMPONENTS
+   ============================================ */
 .no-results {
     text-align: center;
     padding: 40px;
-    color: #666;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-footer {
-  background-color: #d5addf;
-  padding: 10px;
-  text-align: center;
-  color: white;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+    color: var(--text-light);
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
 }
 
 alert {
-  display: block;
-  text-align: center;
-  padding: 10px;
-  color: #d560d7;
-  border-radius: 5px;
-  font-weight: bold;
+    display: block;
+    text-align: center;
+    padding: 15px;
+    margin: 20px 0;
+    color: var(--accent-color);
+    background: var(--accent-light);
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    border-left: 4px solid var(--accent-color);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+    padding: 20px;
+    text-align: center;
+    color: white;
+    margin-top: auto;
+}
+
+footer p {
+    opacity: 0.9;
+    font-size: 0.9em;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media screen and (max-width: 768px) {
+    .nav-container {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 10px;
+    }
+    
+    .nav-link {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+    
+    .search-form {
+        flex-direction: column;
+    }
+    
+    .events-table {
+        font-size: 0.9em;
+    }
+    
+    .events-table th,
+    .events-table td {
+        padding: 10px;
+    }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-container,
+.events-table,
+.gallery-section {
+    animation: fadeIn 0.5s ease-out;
 }
