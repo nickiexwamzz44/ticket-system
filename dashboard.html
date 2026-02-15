@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    .row.content {height: 550px}
+
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+        
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse visible-xs">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Ticketier</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Dashboard</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="shopping-cart.html">Cart</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <h2>The Ticketier</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#section1">Dashboard</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="shopping-cart.html">Cart</a></li>
+      </ul><br>
+    </div>
+    <br>
+    
+    <!-- Main Content Area -->
+    <div class="col-sm-9">
+      <!-- Welcome Section -->
+      <div class="well">
+        <h1>Welcome to Your Dashboard</h1>
+        <p>Track your tickets, purchases, and upcoming events all in one place.</p>
+      </div>
+
+      <!-- Statistics Cards -->
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h4><span class="glyphicon glyphicon-shopping-cart"></span> Cart Items</h4>
+            </div>
+            <div class="panel-body">
+              <h2 id="cartCount">0</h2>
+              <p>items in your cart</p>
+              <a href="shopping-cart.html" class="btn btn-primary btn-sm">View Cart</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-sm-4">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <h4><span class="glyphicon glyphicon-ok-circle"></span> Purchases</h4>
+            </div>
+            <div class="panel-body">
+              <h2 id="purchaseCount">0</h2>
+              <p>tickets purchased</p>
+              <button class="btn btn-success btn-sm" onclick="showPurchases()">View Details</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-sm-4">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h4><span class="glyphicon glyphicon-calendar"></span> Upcoming</h4>
+            </div>
+            <div class="panel-body">
+              <h2 id="upcomingCount">0</h2>
+              <p>events this month</p>
+              <a href="explore.html" class="btn btn-info btn-sm">Explore Events</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Purchases Section -->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4><span class="glyphicon glyphicon-list"></span> Recent Purchases</h4>
+            </div>
+            <div class="panel-body">
+              <div id="purchasesList">
+                <p class="text-muted">No purchases yet. <a href="explore.html">Explore events</a> to buy tickets!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="well">
+            <h4>Quick Actions</h4>
+            <div class="btn-group" role="group">
+              <a href="explore.html" class="btn btn-primary">🔍 Explore Events</a>
+              <a href="shopping-cart.html" class="btn btn-success">🛒 View Cart</a>
+              <a href="index.html" class="btn btn-info">🏠 Back to Home</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center" style="margin-top: 30px; padding: 20px; background-color: #f1f1f1;">
+  <p>© 2024 The Ticketier. All rights reserved.</p>
+</footer>
+
+<script>
+  const CART_KEY = 'ticket_cart';
+  const PURCHASES_KEY = 'ticket_purchases';
+
+  // Load dashboard data on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    updateCartCount();
+    updatePurchaseCount();
+    updateUpcomingCount();
+    displayRecentPurchases();
+  });
+
+  function getCart() {
+    const cart = localStorage.getItem(CART_KEY);
+    return cart ? JSON.parse(cart) : [];
+  }
+
+  function getPurchases() {
+    const purchases = localStorage.getItem(PURCHASES_KEY);
+    return purchases ? JSON.parse(purchases) : [];
+  }
+
+  function updateCartCount() {
+    const cart = getCart();
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById('cartCount').textContent = totalItems;
+  }
+
+  function updatePurchaseCount() {
+    const purchases = getPurchases();
+    const totalTickets = purchases.reduce((sum, item) => sum + (item.quantity || 1), 0);
+    document.getElementById('purchaseCount').textContent = totalTickets;
+  }
+
+  function updateUpcomingCount() {
+    const purchases = getPurchases();
+    const today = new Date();
+    const thisMonth = today.getMonth();
+    const thisYear = today.getFullYear();
+    
+    const upcomingCount = purchases.filter(purchase => {
+      const purchaseDate = new Date(purchase.eventDate);
+      return purchaseDate >= today;
+    }).length;
+    
+    document.getElementById('upcomingCount').textContent = upcomingCount;
+  }
+
+  function displayRecentPurchases() {
+    const purchases = getPurchases();
+    const purchasesList = document.getElementById('purchasesList');
+    
+    if (purchases.length === 0) {
+      purchasesList.innerHTML = '<p class="text-muted">No purchases yet. <a href="explore.html">Explore events</a> to buy tickets!</p>';
+      return;
+    }
+    
+    // Show last 5 purchases
+    const recentPurchases = purchases.slice(-5).reverse();
+    
+    let html = '<div class="table-responsive"><table class="table table-striped">';
+    html += '<thead><tr><th>Event</th><th>Date</th><th>Location</th><th>Ticket Type</th><th>Qty</th></tr></thead>';
+    html += '<tbody>';
+    
+    recentPurchases.forEach(purchase => {
+      html += `
+        <tr>
+          <td><strong>${purchase.eventName}</strong></td>
+          <td>${purchase.eventDate}</td>
+          <td>${purchase.eventLocation}</td>
+          <td>${purchase.ticketOptions || purchase.ticketType || 'N/A'}</td>
+          <td>${purchase.quantity || 1}</td>
+        </tr>
+      `;
+    });
+    
+    html += '</tbody></table></div>';
+    purchasesList.innerHTML = html;
+  }
+
+  function showPurchases() {
+    window.location.href = 'shopping-cart.html';
+  }
+</script>
+
+</body>
+</html>
