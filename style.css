@@ -30,6 +30,7 @@ body {
 h2 {
     color: #333;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .muted {
@@ -143,11 +144,23 @@ h2 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-
-/* Style the footer */
 footer {
   background-color: #777;
   padding: 10px;
   text-align: center;
   color: white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+alert {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  color: rgb(7, 7, 7);
+  border-radius: 5px;
+  font-weight: bold;
 }
