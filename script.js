@@ -60,6 +60,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // ==================== TICKET SELECT DROPDOWN FUNCTIONALITY ====================
+    const ticketSelects = document.querySelectorAll('.ticket-select');
+    ticketSelects.forEach(select => {
+        select.addEventListener('change', function() {
+            // Get the selected option value (format: "type|price")
+            const selectedValue = this.value;
+            const [ticketType, ticketPrice] = selectedValue.split('|');
+            
+            // Find the corresponding button in the same row
+            const row = this.closest('tr');
+            const addButton = row.querySelector('.add-to-cart-btn');
+            
+            // Update button data attributes
+            addButton.setAttribute('data-ticket-type', ticketType);
+            addButton.setAttribute('data-ticket-price', ticketPrice);
+        });
+    });
+
     // ==================== BUY BUTTON FUNCTIONALITY ====================
     const buyButtons = document.querySelectorAll('.buy-btn');
     buyButtons.forEach(button => {
@@ -141,7 +159,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function parsePrice(price) {
+        // Handle prices like "free", "ksh 500pp", "ksh 5,000pp", "free entry", etc.
+        if (typeof price === 'string') {
+            if (price.toLowerCase() === 'free' || price.toLowerCase() === 'free entry') {
+                return 0;
+            }
+            // Extract numeric value from price string
+            const match = price.match(/[\d,.]+/);
+            if (match) {
+                return parseFloat(match[0].replace(/,/g, ''));
+            }
+        }
+        return parseFloat(price) || 0;
+    }
+
     function displayCart() {
+
         const cart = getCart();
         const cartItemsElement = document.getElementById('cartItems');
         
@@ -156,8 +190,9 @@ document.addEventListener('DOMContentLoaded', function() {
         let total = 0;
         
         cart.forEach(item => {
-            const itemTotal = parseFloat(item.ticketPrice) * item.quantity;
+            const itemTotal = parsePrice(item.ticketPrice) * item.quantity;
             total += itemTotal;
+
             cartHTML += `
                 <li>
                     <strong>${item.eventName}</strong> - ${item.ticketType} 

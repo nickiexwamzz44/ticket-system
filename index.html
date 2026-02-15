@@ -63,37 +63,45 @@
                     <td>July 15, 2025</td>
                     <td>Uhuru Park, Nairobi</td>
                     <td>
-                        <span class="ticket-option">General - free</span>
+                        <select class="ticket-select" data-default-type="General" data-default-price="free">
+                            <option value="General|free">General - free</option>
+                        </select>
                     </td>
-                    <td><button class="buy-btn">Buy Tickets</button></td>
+                    <td><button class="add-to-cart-btn" data-ticket-type="General" data-ticket-price="free">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <td>Tech Conference 2025</td>
                     <td>August 20, 2025</td>
                     <td>Kenya Hackerthon, Nairobi</td>
                     <td>
-                        <span class="ticket-option">Standard - ksh 500pp</span>
+                        <select class="ticket-select" data-default-type="Standard" data-default-price="ksh 500pp">
+                            <option value="Standard|ksh 500pp">Standard - ksh 500pp</option>
+                        </select>
                     </td>
-                    <td><button class="buy-btn">Buy Tickets</button></td>
+                    <td><button class="add-to-cart-btn" data-ticket-type="Standard" data-ticket-price="ksh 500pp">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <td>Asake Concert</td>
                     <td>September 5, 2025</td>
                     <td>Nyayo Stadium, Nairobi</td>
                     <td>
-                        <span class="ticket-option">Regular - ksh 5,000pp</span>
-                        <span class="ticket-option">VIP- ksh 20,000</span>
+                        <select class="ticket-select" data-default-type="Regular" data-default-price="ksh 5,000pp">
+                            <option value="Regular|ksh 5,000pp">Regular - ksh 5,000pp</option>
+                            <option value="VIP|ksh 20,000">VIP - ksh 20,000</option>
+                        </select>
                     </td>
-                    <td><button class="buy-btn">Buy Tickets</button></td>
+                    <td><button class="add-to-cart-btn" data-ticket-type="Regular" data-ticket-price="ksh 5,000pp">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <td>Mashujaa Celebration</td>
                     <td>October 20, 2025</td>
                     <td>Nyayo stadium, Nairobi</td>
                     <td>
-                        <span class="ticket-option">Regular - free entry</span>
+                        <select class="ticket-select" data-default-type="Regular" data-default-price="free entry">
+                            <option value="Regular|free entry">Regular - free entry</option>
+                        </select>
                     </td>
-                    <td><button class="buy-btn">Buy Tickets</button></td>
+                    <td><button class="add-to-cart-btn" data-ticket-type="Regular" data-ticket-price="free entry">Add to Cart</button></td>
                 </tr>
             </tbody>
         </table>
