@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore - The Ticketier</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Hero Section */
+        .explore-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .explore-hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .explore-hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+        }
+        
+        .search-box button {
+            padding: 15px 30px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .search-box button:hover {
+            background: #218838;
+        }
+
+        /* Section Styling */
+        .section-title {
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            display: inline-block;
+            width: 100%;
+        }
+
+        /* Gallery Grid */
+        .gallery-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item .event-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3em;
+        }
+
+        .item-content {
+            padding: 20px;
+        }
+
+        .item-content h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 1.3em;
+        }
+
+        .item-content p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .item-content .event-date {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .item-content .event-price {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .ticket-select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #5568d3;
+        }
+
+        /* Category Tags */
+        .category-tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+
+        .free-tag {
+            background: #28a745;
+        }
+
+        .upcoming-tag {
+            background: #ffc107;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="explore.html" class="nav-link active">Explore</a>
+            <a href="shopping-cart.html" class="nav-link">Cart <span id="cartCount">0</span></a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="explore-hero">
+        <h1>Explore Events</h1>
+        <p>Discover amazing concerts, festivals, and conferences happening near you</p>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search events by name...">
+            <button onclick="searchEvents()">Search</button>
+        </div>
+    </div>
+
+    <!-- Trending Events Section -->
+    <h2 class="section-title">🔥 Trending Events</h2>
+    <div class="gallery-section" id="trendingEvents">
+        <div class="gallery-item" data-event-name="Asake Concert">
+            <div class="event-image">🎵</div>
+            <div class="item-content">
+                <span class="category-tag">Concert</span>
+                <h3>Asake Concert</h3>
+                <p class="event-date">September 5, 2025</p>
+                <p>Nyayo Stadium, Nairobi</p>
+                <p class="event-price">From ksh 5,000pp</p>
+                <select class="ticket-select" onchange="updateTicketData(this)">
+                    <option value="Regular|ksh 5,000pp">Regular - ksh 5,000pp</option>
+                    <option value="VIP|ksh 20,000">VIP - ksh 20,000</option>
+                </select>
+                <button class="add-to-cart-btn" data-event="Asake Concert" data-date="September 5, 2025" data-location="Nyayo Stadium, Nairobi" data-type="Regular" data-price="ksh 5,000pp" onclick="addEventToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="gallery-item" data-event-name="Kenya Music Festival">
+            <div class="event-image">🎸</div>
+            <div class="item-content">
+                <span class="category-tag">Festival</span>
+                <h3>Kenya Music Festival</h3>
+                <p class="event-date">July 15, 2025</p>
+                <p>Uhuru Park, Nairobi</p>
+                <p class="event-price">Free Entry</p>
+                <select class="ticket-select" onchange="updateTicketData(this)">
+                    <option value="General|free">General - free</option>
+                </select>
+                <button class="add-to-cart-btn" data-event="Kenya Music Festival" data-date="July 15, 2025" data-location="Uhuru Park, Nairobi" data-type="General" data-price="free" onclick="addEventToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-event-name="Tech Conference 2025">
+            <div class="event-image">💻</div>
+            <div class="item-content">
+                <span class="category-tag">Conference</span>
+                <h3>Tech Conference 2025</h3>
+                <p class="event-date">August 20, 2025</p>
+                <p>Kenya Hackerthon, Nairobi</p>
+                <p class="event-price">ksh 500pp</p>
+                <select class="ticket-select" onchange="updateTicketData(this)">
+                    <option value="Standard|ksh 500pp">Standard - ksh 500pp</option>
+                    <option value="Premium|ksh 1,500">Premium - ksh 1,500</option>
+                </select>
+                <button class="add-to-cart-btn" data-event="Tech Conference 2025" data-date="August 20, 2025" data-location="Kenya Hackerthon, Nairobi" data-type="Standard" data-price="ksh 500pp" onclick="addEventToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Free Events Section -->
+    <h2 class="section-title">🆓 Free Events</h2>
+    <div class="gallery-section" id="freeEvents">
+        <div class="gallery-item" data-event-name="Mashujaa Celebration">
+            <div class="event-image">🇰🇪</div>
+            <div class="item-content">
+                <span class="category-tag free-tag">Free</span>
+                <h3>Mashujaa Celebration</h3>
+                <p class="event-date">October 20, 2025</p>
+                <p>Nyayo Stadium, Nairobi</p>
+                <p class="event-price">Free Entry</p>
+                <select class="ticket-select" onchange="updateTicketData(this)">
+                    <option value="Regular|free entry">Regular - free entry</option>
+                </select>
+                <button class="add-to-cart-btn" data-event="Mashujaa Celebration" data-date="October 20, 2025" data-location="Nyayo Stadium, Nairobi" data-type="Regular" data-price="free entry" onclick="addEventToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-event-name="Open Mic Night">
+            <div class="event-image">🎤</div>
+            <div class="item-content">
+                <span class="category-tag free-tag">Free</span>
+                <h3>Open Mic Night</h3>
+                <p class="event-date">Every Friday</p>
+                <p>The Alchemist, Nairobi</p>
+                <p class="event-price">Free Entry</p>
+                <select class="ticket-select" onchange="updateTicketData(this)">
+                    <option value="General|free">General - free</option>
+                </select>
+                <button class="add-to-cart-btn" data-event="Open Mic Night" data-date="Every Friday" data-location="The Alchemist, Nairobi" data-type="General" data-price="free" onclick="addEventToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-event-name="Art Exhibition">
+            <div class="event-image">🎨</div>
+            <div class="item-content">
+                <span class="category-tag free-tag">Free</span>
+                <h3>Art Exhibition</h3>
+                <p class="event-date">August 1-31, 2025</p>
+                <p>Nairobi National Museum</p>
+                <p class="event-price">Free Entry</p>
+                <select class="ticket-select" onchange="updateTicketData(this)">
+                    <option value="General|free">General - free</option>
+                </select>
+                <button class="add-to-cart-btn" data-event="Art Exhibition" data-date="August 1-31, 2025" data-location="Nairobi National Museum" data-type="General" data-price="free" onclick="addEventToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Events Section -->
+    <h2 class="section-title">📅 Upcoming Events</h2>
+    <div class="gallery-section" id="upcomingEvents">
+        <div class="gallery-item" data-event-name="Nairobi International Trade Fair">
+            <div class="event-image">🏢</div>
+            <div class="item-content">
+                <span class="category-tag upcoming-tag">Coming Soon</span>
+                <h3>Nairobi International Trade Fair</h3>
+                <p class="event-date">October 2-8, 2025</p>
+                <p>Kenyatta International Convention Centre</p>
+                <p class="event-price">ksh 200pp</p>
+                <select class="ticket-select" onchange="updateTicketData(this)">
+                    <option value="Day Pass|ksh 200pp">Day Pass - ksh 200pp</option>
+                    <option value="Week Pass|ksh 1,000">Week Pass - ksh 1,000</option>
+                </select>
+                <button class="add-to-cart-btn" data-event="Nairobi International Trade Fair" data-date="October 2-8, 2025" data-location="Kenyatta International Convention Centre" data-type="Day Pass" data-price="ksh 200pp" onclick="addEventToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-event-name="Blankets and Wine">
+            <div class="event-image">🍷</div>
+            <div class="item-content">
+                <span class="category-tag upcoming-tag">Coming Soon</span>
+                <h3>Blankets and Wine</h3>
+                <p class="event-date">November 15, 2025</p>
+                <p>Uhuru Gardens, Nairobi</p>
+                <p class="event-price">ksh 3,500pp</p>
+                <select class="ticket-select" onchange="updateTicketData(this)">
+                    <option value="Regular|ksh 3,500pp">Regular - ksh 3,500pp</option>
+                    <option value="VIP|ksh 8,000">VIP - ksh 8,000</option>
+                </select>
+                <button class="add-to-cart-btn" data-event="Blankets and Wine" data-date="November 15, 2025" data-location="Uhuru Gardens, Nairobi" data-type="Regular" data-price="ksh 3,500pp" onclick="addEventToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-event-name="Kenya Comedy Festival">
+            <div class="event-image">😂</div>
+            <div class="item-content">
+                <span class="category-tag upcoming-tag">Coming Soon</span>
+                <h3>Kenya Comedy Festival</h3>
+                <p class="event-date">December 12, 2025</p>
+                <p>Carnivore Grounds, Nairobi</p>
+                <p class="event-price">ksh 1,000pp</p>
+                <select class="ticket-select" onchange="updateTicketData(this)">
+                    <option value="Standard|ksh 1,000pp">Standard - ksh 1,000pp</option>
+                    <option value="VIP|ksh 3,000">VIP - ksh 3,000</option>
+                </select>
+                <button class="add-to-cart-btn" data-event="Kenya Comedy Festival" data-date="December 12, 2025" data-location="Carnivore Grounds, Nairobi" data-type="Standard" data-price="ksh 1,000pp" onclick="addEventToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const CART_KEY = 'ticket_cart';
+
+        // Update cart count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+
+        function getCart() {
+            const cart = localStorage.getItem(CART_KEY);
+            return cart ? JSON.parse(cart) : [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const cart = getCart();
+            const cartCountElement = document.getElementById('cartCount');
+            if (cartCountElement) {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCountElement.textContent = totalItems;
+            }
+        }
+
+        function updateTicketData(select) {
+            const selectedValue = select.value;
+            const [ticketType, ticketPrice] = selectedValue.split('|');
+            const button = select.parentElement.querySelector('.add-to-cart-btn');
+            button.setAttribute('data-type', ticketType);
+            button.setAttribute('data-price', ticketPrice);
+        }
+
+        function addEventToCart(button) {
+            const eventName = button.getAttribute('data-event');
+            const eventDate = button.getAttribute('data-date');
+            const eventLocation = button.getAttribute('data-location');
+            const ticketType = button.getAttribute('data-type');
+            const ticketPrice = button.getAttribute('data-price');
+
+            const ticket = {
+                id: Date.now(),
+                eventName: eventName,
+                eventDate: eventDate,
+                eventLocation: eventLocation,
+                ticketType: ticketType,
+                ticketPrice: ticketPrice,
+                quantity: 1
+            };
+
+            const cart = getCart();
+            
+            // Check if same ticket already in cart
+            const existingTicket = cart.find(item => 
+                item.eventName === ticket.eventName && 
+                item.ticketType === ticket.ticketType
+            );
+            
+            if (existingTicket) {
+                existingTicket.quantity += 1;
+            } else {
+                cart.push(ticket);
+            }
+            
+            saveCart(cart);
+            alert(`Added to cart: ${ticketType} for ${eventName}`);
+        }
+
+        function searchEvents() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const allEvents = document.querySelectorAll('.gallery-item');
+            
+            allEvents.forEach(event => {
+                const eventName = event.getAttribute('data-event-name').toLowerCase();
+                if (searchTerm === '' || eventName.includes(searchTerm)) {
+                    event.style.display = '';
+                } else {
+                    event.style.display = 'none';
+                }
+            });
+        }
+
+        // Allow Enter key to trigger search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchEvents();
+            }
+        });
+    </script>
