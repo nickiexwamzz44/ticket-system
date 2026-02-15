@@ -11,6 +11,16 @@ h1{
     text-align: start;
 }
 
+header {
+ background-color: #777;
+  padding: 10px;
+  color: white;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
 body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
