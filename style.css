@@ -6,19 +6,15 @@
 }
 
 h1{
-    color: #333;
+    color: #d560d7;
     margin-bottom: 10px;
     text-align: start;
 }
 
 header {
- background-color: #777;
-  padding: 10px;
+ background-color: #d5addf;
+  padding: 20px;
   color: white;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
 }
 
 body {
@@ -44,7 +40,7 @@ body {
 }
 
 h2 {
-    color: #333;
+    color: #d5addf;
     margin-bottom: 10px;
     text-align: center;
 }
@@ -75,7 +71,7 @@ h2 {
 
 .search-form button {
     padding: 12px 25px;
-    background: #667eea;
+    background: #d560d7;
     color: white;
     border: none;
     border-radius: 5px;
@@ -98,8 +94,8 @@ h2 {
 }
 
 .events-table thead {
-    background: #667eea;
-    color: white;
+    background: #d5addf;
+    color: #d560d7;
 }
 
 .events-table th {
@@ -137,7 +133,7 @@ h2 {
 
 .buy-btn {
     padding: 8px 20px;
-    background: #28a745;
+    background: #d560d7;
     color: white;
     border: none;
     border-radius: 5px;
@@ -148,7 +144,7 @@ h2 {
 }
 
 .buy-btn:hover {
-    background: #218838;
+    background: #d5addf;
 }
 
 .no-results {
@@ -161,14 +157,12 @@ h2 {
 }
 
 footer {
-  background-color: #777;
+  background-color: #d5addf;
   padding: 10px;
   text-align: center;
   color: white;
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
   width: 100%;
 }
 
@@ -176,7 +170,7 @@ alert {
   display: block;
   text-align: center;
   padding: 10px;
-  color: rgb(7, 7, 7);
+  color: #d560d7;
   border-radius: 5px;
   font-weight: bold;
 }
