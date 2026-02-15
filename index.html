@@ -7,7 +7,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>The Ticketier</h1>
+    <p>Get your Event tickets <strong>Here!</strong></p>
+    <br>
     <div class="container">
+        <!-- Cart Button -->
+        <div class="cart-header">
+            <button id="cartBtn" class="cart-btn">
+                🛒 Cart <span id="cartCount">0</span>
+            </button>
+        </div>
+        <br>
         <!-- Search Form -->
         <div class="form-container">
             <h2>Find Events</h2>
@@ -16,6 +26,16 @@
                 <input type="text" id="searchInput" placeholder="Search by event name...">
                 <button type="submit">Search</button>
             </form>
+        </div>
+        
+        <!-- Cart Display Section -->
+        <div id="cartSection" class="cart-section" style="display: none;">
+            <h3>Your Cart</h3>
+            <div id="cartItems">
+                <p>Your cart is empty</p>
+            </div>
+            <button id="checkoutBtn" class="buy-btn">Checkout</button>
+            <button id="closeCartBtn" class="buy-btn" style="background: #666;">Close</button>
         </div>
         
         <!-- Events Table with Ticket Options -->
