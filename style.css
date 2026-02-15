@@ -1,7 +1,3 @@
-/* ============================================
-   THE TICKETIER - UNIFIED DESIGN SYSTEM
-   ============================================ */
-
 /* CSS Variables for Consistent Color Palette */
 :root {
     --primary-color: #9b59b6;        /* Main purple */
@@ -26,9 +22,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ============================================
-   NAVIGATION BAR - Consistent across all pages
-   ============================================ */
+/*NAVIGATION BAR - Consistent across all pages*/
 .navbar {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     padding: 0;
@@ -104,9 +98,8 @@
     margin-left: 5px;
 }
 
-/* ============================================
-   HEADER STYLES
-   ============================================ */
+  /* HEADER STYLES*/
+
 h1 {
     color: var(--primary-dark);
     margin-bottom: 10px;
@@ -172,9 +165,8 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* ============================================
-   FORM ELEMENTS
-   ============================================ */
+  /*  FORM ELEMENTS */
+
 .search-form {
     display: flex;
     gap: 10px;
@@ -225,9 +217,7 @@ h2 {
 }
 
 
-/* ============================================
-   TABLES
-   ============================================ */
+/*TABLES*/
 .events-table {
     width: 100%;
     border-collapse: collapse;
@@ -266,9 +256,7 @@ h2 {
 }
 
 
-/* ============================================
-   TICKET COMPONENTS
-   ============================================ */
+/*TICKET COMPONENTS*/
 .ticket-option {
     display: inline-block;
     padding: 8px 15px;
@@ -308,9 +296,7 @@ h2 {
 }
 
 
-/* ============================================
-   UTILITY COMPONENTS
-   ============================================ */
+/*UTILITY COMPONENTS*/
 .no-results {
     text-align: center;
     padding: 40px;
@@ -332,15 +318,15 @@ alert {
     border-left: 4px solid var(--accent-color);
 }
 
-/* ============================================
-   FOOTER
-   ============================================ */
+/*FOOTER*/
 footer {
     background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
     padding: 20px;
     text-align: center;
     color: white;
     margin-top: auto;
+    position: fixed;
+    bottom: 0;
 }
 
 footer p {
@@ -348,9 +334,7 @@ footer p {
     font-size: 0.9em;
 }
 
-/* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
+/*RESPONSIVE DESIGN*/
 @media screen and (max-width: 768px) {
     .nav-container {
         flex-wrap: wrap;
@@ -377,9 +361,7 @@ footer p {
     }
 }
 
-/* ============================================
-   ANIMATIONS
-   ============================================ */
+/*ANIMATIONS*/
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
