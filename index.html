@@ -4,17 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticketing system</title>
-    <link rel="style sheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-   <div class="form-container">
-    <h2>Events</h2>
-    <p class="muted">Enter event name</p>
-    <form id="nameForm">
-        <div class="form-row">
-            <div class="form-group">
+    <div class="container">
+        <!-- Search Form -->
+        <div class="form-container">
+            <h2>Find Events</h2>
+            <p class="muted">Search for events to find tickets</p>
+            <form id="searchForm" class="search-form">
+                <input type="text" id="searchInput" placeholder="Search by event name...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        
+        <!-- Events Table with Ticket Options -->
+        <table class="events-table" id="eventsTable">
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Ticket Options</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="eventsBody">
+                <tr>
+                    <td>Kenya Music Festival</td>
+                    <td>July 15, 2025</td>
+                    <td>Uhuru Park, Nairobi</td>
+                    <td>
+                        <span class="ticket-option">General - free</span>
+                    </td>
+                    <td><button class="buy-btn">Buy Tickets</button></td>
+                </tr>
+                <tr>
+                    <td>Tech Conference 2025</td>
+                    <td>August 20, 2025</td>
+                    <td>Kenya Hackerthon, Nairobi</td>
+                    <td>
+                        <span class="ticket-option">Standard - ksh 500pp</span>
+                    </td>
+                    <td><button class="buy-btn">Buy Tickets</button></td>
+                </tr>
+                <tr>
+                    <td>Asake Concert</td>
+                    <td>September 5, 2025</td>
+                    <td>Nyayo Stadium, Nairobi</td>
+                    <td>
+                        <span class="ticket-option">Regular - ksh 5,000pp</span>
+                        <span class="ticket-option">VIP- ksh 20,000</span>
+                    </td>
+                    <td><button class="buy-btn">Buy Tickets</button></td>
+                </tr>
+                <tr>
+                    <td>Mashujaa Celebration</td>
+                    <td>October 20, 2025</td>
+                    <td>Nyayo stadium, Nairobi</td>
+                    <td>
+                        <span class="ticket-option">Regular - free entry</span>
+                    </td>
+                    <td><button class="buy-btn">Buy Tickets</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-   </div>
+    <script src="script.js"></script>
 
+    <footer>
+    <p> © 2024. All rights reserved.</p>
+</footer>
 </body>
 </html>
