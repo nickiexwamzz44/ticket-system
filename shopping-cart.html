@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - The Ticketier</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cart-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .cart-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-details h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        
+        .cart-item-details p {
+            margin: 5px 0;
+            color: #666;
+        }
+        
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: #667eea;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .quantity-btn:hover {
+            background: #5568d3;
+        }
+        
+        .remove-btn {
+            padding: 8px 15px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .remove-btn:hover {
+            background: #c82333;
+        }
+        
+        .cart-summary {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .cart-total {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .cart-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .back-btn {
+            padding: 12px 25px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            background: #5a6268;
+        }
+        
+        .clear-btn {
+            padding: 12px 25px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .clear-btn:hover {
+            background: #c82333;
+        }
+        
+        .checkout-btn {
+            padding: 12px 25px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .checkout-btn:hover {
+            background: #218838;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .empty-cart h2 {
+            color: #666;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>The Ticketier</h1>
+        <p>Your Shopping Cart</p>
+    </header>
+    
+    <div class="cart-container">
+        <div id="cartContent">
+            <!-- Cart items will be displayed here -->
+        </div>
+        
+        <div class="cart-summary" id="cartSummary" style="display: none;">
+            <div class="cart-total">Total: <span id="cartTotal">$0</span></div>
+            <div class="cart-actions">
+                <a href="index.html" class="back-btn">← Back to Events</a>
+                <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
+                <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2024. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const CART_KEY = 'ticket_cart';
+        const PURCHASES_KEY = 'ticket_purchases';
+        
+        // Load cart on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            displayCart();
+        });
+        
+        function getCart() {
+            const cart = localStorage.getItem(CART_KEY);
+            return cart ? JSON.parse(cart) : [];
+        }
+        
+        function saveCart(cart) {
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+            displayCart();
+        }
+        
+        function displayCart() {
+            const cart = getCart();
+            const cartContent = document.getElementById('cartContent');
+            const cartSummary = document.getElementById('cartSummary');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartContent.innerHTML = `
+                    <div class="empty-cart">
+                        <h2>Your cart is empty</h2>
+                        <p>Browse our events and add tickets to your cart!</p>
+                        <br>
+                        <a href="index.html" class="back-btn">Browse Events</a>
+                    </div>
+                `;
+                cartSummary.style.display = 'none';
+                return;
+            }
+            
+            let total = 0;
+            let cartHTML = '';
+            
+            cart.forEach((item, index) => {
+                const itemTotal = parsePrice(item.ticketPrice) * item.quantity;
+                total += itemTotal;
+                
+                cartHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-details">
+                            <h3>${item.eventName}</h3>
+                            <p><strong>Date:</strong> ${item.eventDate}</p>
+                            <p><strong>Location:</strong> ${item.eventLocation}</p>
+                            <p><strong>Ticket Type:</strong> ${item.ticketType}</p>
+                            <p><strong>Price:</strong> ${item.ticketPrice}</p>
+                        </div>
+                        <div class="cart-item-actions">
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                            </div>
+                            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cartContent.innerHTML = cartHTML;
+            cartTotal.textContent = '$' + total;
+            cartSummary.style.display = 'block';
+        }
+        
+        function parsePrice(price) {
+            // Handle prices like "free", "ksh 500pp", etc.
+            if (typeof price === 'string') {
+                if (price.toLowerCase() === 'free') {
+                    return 0;
+                }
+                // Extract numeric value from price string
+                const match = price.match(/[\d,.]+/);
+                if (match) {
+                    return parseFloat(match[0].replace(/,/g, ''));
+                }
+            }
+            return parseFloat(price) || 0;
+        }
+        
+        function updateQuantity(index, change) {
+            const cart = getCart();
+            if (cart[index]) {
+                cart[index].quantity += change;
+                if (cart[index].quantity <= 0) {
+                    cart.splice(index, 1);
+                }
+                saveCart(cart);
+            }
+        }
+        
+        function removeItem(index) {
+            const cart = getCart();
+            cart.splice(index, 1);
+            saveCart(cart);
+        }
+        
+        function clearCart() {
+            if (confirm('Are you sure you want to clear your cart?')) {
+                localStorage.setItem(CART_KEY, JSON.stringify([]));
+                displayCart();
+            }
+        }
+        
+        function checkout() {
+            const cart = getCart();
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            // Save all cart items as purchases
+            const purchases = JSON.parse(localStorage.getItem(PURCHASES_KEY) || '[]');
+            
+            cart.forEach(item => {
+                purchases.push({
+                    id: item.id,
+                    eventName: item.eventName,
+                    eventDate: item.eventDate,
+                    eventLocation: item.eventLocation,
+                    ticketOptions: item.ticketType + ' - ' + item.ticketPrice,
+                    quantity: item.quantity,
+                    purchaseDate: new Date().toISOString()
+                });
+            });
+            
+            localStorage.setItem(PURCHASES_KEY, JSON.stringify(purchases));
+            
+            // Clear cart
+            localStorage.setItem(CART_KEY, JSON.stringify([]));
+            
+            alert('Purchase complete! Your tickets have been saved.');
+            displayCart();
+        }
+        
+        // Make functions available globally
+        window.updateQuantity = updateQuantity;
+        window.removeItem = removeItem;
+        window.clearCart = clearCart;
+        window.checkout = checkout;
+    </script>
+</body>
+</html>
